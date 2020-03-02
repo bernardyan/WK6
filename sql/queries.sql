@@ -1,0 +1,1 @@
+select type.name from card join cards_types on card.id = cards_types.card_id join type on type.id = cards_types.type_id where card.name='Guards';

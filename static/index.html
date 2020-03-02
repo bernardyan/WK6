@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+
+        const checkType = async() => {
+
+            const card_name = document.getElementById("card_name").value;
+
+            const response = await fetch('http://localhost:8000/api/graphql', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body:JSON.stringify({
+                    query: `query { getCardType(name: "${card_name}") { name id } }`,
+                }),
+            });
+
+            const json = await response.json();
+            const { data, errors } = json;
+            const type = data['getCardType']['name'];
+
+            console.log(type);
+            alert(`${card_name} is a ${type}!`);
+        };
+
+        const updateName = async() => {
+
+            const card_id = document.getElementById("card_id").value;
+            const new_name = document.getElementById("new_name").value;
+
+            const response = await fetch('http://localhost:8000/api/graphql', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body:JSON.stringify({
+                    query: `mutation { updateCard(update: {id: ${card_id}, name: "${new_name}"}) { name  id } }`,
+                }),
+            });
+        };
+
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/static/index.css">
+
+    <title>Clash Royale Card Database</title>
+</head>
+
+<div style="background-image: url('/static/background.png');">
+
+    <form>
+        <label for="card_name">Search by Name:</label>
+        <input type="text" id="card_name" name="card_name"><br><br>
+    </form>
+    <button onclick="checkType()">Search</button>
+
+    <h1>--------------------</h1>
+
+    <h2>Update Card Name</h2>
+    <form>
+        <label for="card_id">Card ID:</label>
+        <input type="text" id="card_id" name="card_id"><br><br>
+        <label for="new_name">New Name:</label>
+        <input type="text" id="new_name" name="new_name"><br><br>
+    </form>
+    <button onclick="updateName()">Update Card Name</button>
+
+
+</div>
+
+</body>
+</html>
