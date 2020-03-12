@@ -6,5 +6,11 @@ module.exports = {
             user:     '',
             password: ''
         }
+    },
+    production: {
+        client: 'postgresql',
+        connection: {
+            process.env.DATABASE_URL
+        }
     }
 };
