@@ -14,8 +14,8 @@ app.use('/api/graphql', graphqlHTTP({
 }));
 
 
-const staticRoute = express.static('static');
-app.use('/static', staticRoute);
-app.use('/', staticRoute);
+// const staticRoute = express.static('static');
+// app.use('/static', staticRoute);
+// app.use('/', staticRoute);
 
 export default app;
